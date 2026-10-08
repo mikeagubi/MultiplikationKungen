@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using MultiplikationKungen.Data;
+
 
 namespace MultiplikationKungen
 {
@@ -18,6 +20,9 @@ namespace MultiplikationKungen
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif
+            builder.Services.AddSingleton<AppDatabase>();
+            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddSingleton<AppShell>();
 
             return builder.Build();
         }

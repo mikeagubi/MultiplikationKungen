@@ -1,24 +1,36 @@
-﻿namespace MultiplikationKungen
-{
-    public partial class MainPage : ContentPage
-    {
-        int count = 0;
+﻿using MultiplikationKungen;
+using MultiplikationKungen.Data;
 
-        public MainPage()
+
+
+
+namespace MultiplikationKungen
+{
+
+
+    public partial class MainPage : ContentPage
+    {    
+        private readonly AppDatabase _database;
+        private bool _isInitialized = false;
+
+        public MainPage(AppDatabase database)
         {
             InitializeComponent();
+
+            _database = database;
         }
 
-        private void OnCounterClicked(object? sender, EventArgs e)
+        protected override async void OnAppearing()
         {
-            count++;
+            base.OnAppearing();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
+            if (_isInitialized)
+                return;
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+            await _database.InitializeAsync();
+
+            _isInitialized = true;
         }
+
     }
 }
