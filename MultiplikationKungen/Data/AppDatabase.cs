@@ -31,6 +31,9 @@ namespace MultiplikationKungen.Data
         {
             return await _database.Table<Player>().ToListAsync();
         }
+        
+        //Testar Pullrequest
+
 
 
     }
